@@ -1,0 +1,15 @@
+# Maven
+target
+
+# Eclipse
+*.project
+*.settings
+/bin
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# macOS
+.DS_Store
+
