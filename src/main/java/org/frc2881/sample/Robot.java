@@ -13,9 +13,7 @@ import org.frc2881.sample.commands.InitializePneumatics;
 import org.frc2881.sample.subsystems.Climber;
 import org.frc2881.sample.subsystems.DriveTrain;
 import org.frc2881.sample.subsystems.GearPouch;
-import org.frc2881.sample.subsystems.Intake;
 import org.frc2881.sample.subsystems.Pneumatics;
-import org.frc2881.sample.subsystems.Shooter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,9 +34,7 @@ public class Robot extends IterativeRobot {
     public static Pneumatics pneumatics;
     public static DriveTrain driveTrain;
     public static GearPouch gearPouch;
-    public static Intake intake;
     public static Climber climber;
-    public static Shooter shooter;
 
     private Supplier<Command> autonomousChooser;
     private Command autonomousCommand;
@@ -49,19 +45,18 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        // Setup devices
+        // Setup low-level hardware and controls
         robotMap = new RobotMap();
+        oi = new OI();
 
         // Setup subsystems composed of devices
         pneumatics = register(new Pneumatics());
         driveTrain = register(new DriveTrain());
         gearPouch = register(new GearPouch());
-        intake = register(new Intake());
         climber = register(new Climber());
-        shooter = register(new Shooter());
 
-        // Setup user controls & wire them to subsystems
-        oi = new OI();
+        // Wire controls to subsystems
+        oi.initCommands();
 
         // Which program should be run in autonomous mode?
         autonomousChooser = configureAutonomousMenu();

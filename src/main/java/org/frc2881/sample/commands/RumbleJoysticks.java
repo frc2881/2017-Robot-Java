@@ -30,9 +30,7 @@ public class RumbleJoysticks extends TimedCommand {
 
     private void setRumble(double level) {
         for (GenericHID controller : controllers) {
-            for (RumbleType rumbleType : RumbleType.values()) {
-                controller.setRumble(rumbleType, level);
-            }
+            controller.setRumble(RumbleType.kRightRumble, level);
         }
     }
 }

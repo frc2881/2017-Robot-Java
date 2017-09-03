@@ -12,7 +12,6 @@ public class InitializePneumatics extends Command {
         // Require every subsystem that contains a solenoid
         requires(Robot.driveTrain);
         requires(Robot.gearPouch);
-        requires(Robot.intake);
         requires(Robot.climber);
         // Lock all the subsystems until pneumatics control has been enabled and pistons set to their initial position
         setInterruptible(false);
@@ -33,8 +32,6 @@ public class InitializePneumatics extends Command {
         // Set initial state and release subsystem locks
         Robot.driveTrain.lowGear();
         Robot.gearPouch.pouchUp();
-        Robot.intake.lowGear();
-        Robot.climber.releaseBrake();
         finished = true;
     }
 
