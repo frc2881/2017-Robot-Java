@@ -25,4 +25,8 @@ public class Pneumatics extends Subsystem {
         }
         return enabled;
     }
+
+    /** The log method puts interesting information to the SmartDashboard. */
+    public void log() {
+    }
 }

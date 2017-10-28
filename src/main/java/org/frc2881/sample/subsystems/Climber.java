@@ -15,6 +15,10 @@ public class Climber extends Subsystem {
     }
 
     public void climb(double speed) {
-        ratchetMotor.set(Math.max(speed, 0));
+        ratchetMotor.set(speed);
+    }
+
+    /** The log method puts interesting information to the SmartDashboard. */
+    public void log() {
     }
 }

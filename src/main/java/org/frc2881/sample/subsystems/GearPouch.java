@@ -42,4 +42,8 @@ public class GearPouch extends Subsystem {
     public double getMotorCurrent() {
         return pdp.getCurrent(motorPdpChannel);
     }
+
+    /** The log method puts interesting information to the SmartDashboard. */
+    public void log() {
+    }
 }

@@ -1,12 +1,11 @@
 package org.frc2881.sample;
 
-import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into to a variable name. This provides
@@ -14,7 +13,6 @@ import edu.wpi.first.wpilibj.SpeedController;
  * floating around.
  */
 public class RobotMap {
-    private static final boolean TEST_BOARD = false;
 
     //
     // CAN bus addresses (0-63)
@@ -27,16 +25,16 @@ public class RobotMap {
     //
     // PWM Outputs (0-9)
 
-    private final SpeedController rearLeftMotor = new Spark(1);
-    private final SpeedController rearRightMotor = new Spark(TEST_BOARD ? 0 : 9);
-    private final SpeedController frontLeftMotor = new Spark(3);
-    private final SpeedController frontRightMotor = new Spark(2);
+    private final Spark rearLeftMotor = new Spark(1);
+    private final Spark rearRightMotor = new Spark(9);
+    private final Spark frontLeftMotor = new Spark(3);
+    private final Spark frontRightMotor = new Spark(2);
     public final RobotDrive robotDrive = new RobotDrive(
             frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 
-    public final SpeedController climberRatchetMotor = TEST_BOARD ? new CANTalon(0) : new Spark(7);
+    public final Spark climberRatchetMotor = new Spark(7);
 
-    public final SpeedController gearIntakeMotor = TEST_BOARD ? new CANTalon(1) : new Spark(8);
+    public final Spark gearIntakeMotor = new Spark(8);
     public final int gearIntakeMotorPdpChannel = 3;
 
     //
@@ -50,7 +48,18 @@ public class RobotMap {
     // Additional configuration
 
     public RobotMap() {
-        rearRightMotor.setInverted(true);
-        frontRightMotor.setInverted(true);
+        rearRightMotor.setInverted(false);
+        frontRightMotor.setInverted(false);
+
+        LiveWindow.addActuator("Drive Train", "Front Left Motor", frontLeftMotor);
+        LiveWindow.addActuator("Drive Train", "Front Right Motor", frontRightMotor);
+        LiveWindow.addActuator("Drive Train", "Rear Left Motor", rearLeftMotor);
+        LiveWindow.addActuator("Drive Train", "Rear Right Motor", rearRightMotor);
+        LiveWindow.addActuator("Drive Train", "Shifter 1", driveShifter1);
+        LiveWindow.addActuator("Drive Train", "Shifter 2", driveShifter2);
+
+        LiveWindow.addActuator("Climber Motor", "Climber Motor", climberRatchetMotor);
+
+        LiveWindow.addActuator("Gear Pouch", "Intake Motor", gearIntakeMotor);
     }
 }

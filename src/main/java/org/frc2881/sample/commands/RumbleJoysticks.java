@@ -12,7 +12,8 @@ import static org.frc2881.sample.Robot.oi;
 public class RumbleJoysticks extends TimedCommand {
     private static final double DURATION = 1.0;  // seconds
 
-    private final GenericHID[] controllers = {oi.driver, oi.operator};
+    private final GenericHID[] controllers = {oi.driver};
+//    private final GenericHID[] controllers = {oi.driver, oi.operator};
 
     public RumbleJoysticks() {
         super(DURATION);

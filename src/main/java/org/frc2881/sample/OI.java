@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import org.frc2881.sample.commands.DriveWithJoysticks;
-import org.frc2881.sample.commands.PickupGear;
-import org.frc2881.sample.commands.PlaceGear;
+import org.frc2881.sample.commands.FlipBackward;
+import org.frc2881.sample.commands.FlipForward;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -17,11 +17,16 @@ import java.util.function.DoubleSupplier;
  */
 public class OI {
 
+    // The FRC Driver Station should show:
+    //  0 Controller (Gamepad F310)
+    //  1 Wireless Controller
+    //  2 Controller (XBOX 360 For Windows)
+
     //
     // Driver control
 
     /** PS4 controller used by the driver. */
-    public final DualShock4Controller driver = new DualShock4Controller(0, 1);
+    public final DualShock4Controller driver = new DualShock4Controller(1);  // use (1, 2) w/InputMapper to get rumble feedback
 
     /** HID with the left joystick for the driver, wired to tank drive. */
     public final GenericHID driverLeft = driver;
@@ -30,16 +35,19 @@ public class OI {
 
     public final Button highGear = buttonFrom(() -> driver.getBumper(Hand.kRight));
 
+    public final Button goForward = buttonFrom(driver::getRedCircleButton);
+    public final Button goBackward = buttonFrom(driver::getPinkSquareButton);
+
+    public final Button pickupGear = buttonFrom(() -> driver.getTrigger(Hand.kRight));
+    public final Button placeGear = buttonFrom(() -> driver.getBumper(Hand.kLeft));
+
     //
     // Mechanism Operator control
 
     /** GamePad controller used by the mechanism operator. */
-    public final XboxController operator = new XboxController(2);
+    public final XboxController operator = new XboxController(0);
 
-    public final DoubleSupplier climbJoystick = () -> driver.getTriggerAxis(Hand.kRight);
-
-    public final Button pickupGear = buttonFrom(() -> driver.getTrigger(Hand.kLeft));
-    public final Button placeGear = buttonFrom(driver::getBlueXButton);
+    public final DoubleSupplier climbJoystick = () -> Math.max(0, -operator.getY(Hand.kRight));
 
     //
     // Bind controls to commands
@@ -49,10 +57,14 @@ public class OI {
 
         // Holding down gearIntake runs intake, releasing it stops intake.  Release the button when
         // the gamepad rumbles to indicate a gear is in the pouch.
-        pickupGear.whileHeld(new PickupGear());
+//        pickupGear.whileHeld(new PickupGear());
 
         // Hold down the gearEject button, drive away, release the button (maybe too simple, needs testing)
-        placeGear.whileHeld(new PlaceGear());
+//        placeGear.whileHeld(new PlaceGear());
+
+        // Swap the idea of front-to-back
+        goForward.whenActive(new FlipForward());
+        goBackward.whenActive(new FlipBackward());
     }
 
     private Button buttonFrom(BooleanSupplier fn) {

@@ -58,6 +58,11 @@ public class Robot extends IterativeRobot {
         // Wire controls to subsystems
         oi.initCommands();
 
+        SmartDashboard.putData(pneumatics);
+        SmartDashboard.putData(driveTrain);
+        SmartDashboard.putData(gearPouch);
+        SmartDashboard.putData(climber);
+
         // Which program should be run in autonomous mode?
         autonomousChooser = configureAutonomousMenu();
 
@@ -154,5 +159,15 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    /**
+     * The log method puts interesting information to the SmartDashboard.
+     */
+    private void log() {
+        pneumatics.log();
+        driveTrain.log();
+        gearPouch.log();
+        climber.log();
     }
 }
