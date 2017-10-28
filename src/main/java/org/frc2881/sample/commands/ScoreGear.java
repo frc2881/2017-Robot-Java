@@ -7,21 +7,27 @@ import org.frc2881.sample.subsystems.GearPouch;
 /**
  * Gear pouch strategy for hanging a gear on the peg.
  */
-public class PlaceGear extends Command {
+public class ScoreGear extends Command {
     private final GearPouch gearPouch = Robot.gearPouch;
 
-    public PlaceGear() {
+    public ScoreGear() {
         requires(gearPouch);
     }
 
     @Override
     protected void initialize() {
-        gearPouch.pouchDown();
+        gearPouch.resetTimer();
     }
 
     @Override
     protected void execute() {
+        // Run the motor backward
         gearPouch.ejectGear();
+
+        // After a short delay, drop the pouch to leave the gear hanging on the peg
+        if (gearPouch.getTimer() >= 0.250) {
+            gearPouch.pouchDown();
+        }
     }
 
     @Override

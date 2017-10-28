@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import org.frc2881.sample.commands.DriveWithJoysticks;
 import org.frc2881.sample.commands.FlipBackward;
 import org.frc2881.sample.commands.FlipForward;
+import org.frc2881.sample.commands.PickupGear;
+import org.frc2881.sample.commands.ScoreGear;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -26,7 +28,7 @@ public class OI {
     // Driver control
 
     /** PS4 controller used by the driver. */
-    public final DualShock4Controller driver = new DualShock4Controller(1);  // use (1, 2) w/InputMapper to get rumble feedback
+    public final DualShock4Controller driver = new DualShock4Controller(1, 2);  // use (1, 2) w/InputMapper to get rumble feedback, (1) otherwise
 
     /** HID with the left joystick for the driver, wired to tank drive. */
     public final GenericHID driverLeft = driver;
@@ -39,7 +41,7 @@ public class OI {
     public final Button goBackward = buttonFrom(driver::getPinkSquareButton);
 
     public final Button pickupGear = buttonFrom(() -> driver.getTrigger(Hand.kRight));
-    public final Button placeGear = buttonFrom(() -> driver.getBumper(Hand.kLeft));
+    public final Button scoreGear = buttonFrom(() -> driver.getBumper(Hand.kLeft));
 
     //
     // Mechanism Operator control
@@ -57,10 +59,10 @@ public class OI {
 
         // Holding down gearIntake runs intake, releasing it stops intake.  Release the button when
         // the gamepad rumbles to indicate a gear is in the pouch.
-//        pickupGear.whileHeld(new PickupGear());
+        pickupGear.whileHeld(new PickupGear());
 
         // Hold down the gearEject button, drive away, release the button (maybe too simple, needs testing)
-//        placeGear.whileHeld(new PlaceGear());
+        scoreGear.whileHeld(new ScoreGear());
 
         // Swap the idea of front-to-back
         goForward.whenActive(new FlipForward());

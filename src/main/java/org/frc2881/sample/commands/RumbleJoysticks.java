@@ -10,7 +10,7 @@ import static org.frc2881.sample.Robot.oi;
  * Buzzes both controllers for a brief period of time.
  */
 public class RumbleJoysticks extends TimedCommand {
-    private static final double DURATION = 1.0;  // seconds
+    private static final double DURATION = 2.0;  // seconds
 
     private final GenericHID[] controllers = {oi.driver};
 //    private final GenericHID[] controllers = {oi.driver, oi.operator};

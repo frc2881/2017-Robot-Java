@@ -153,6 +153,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        log();
     }
 
     /** This function is called periodically during test mode. */
@@ -165,6 +166,7 @@ public class Robot extends IterativeRobot {
      * The log method puts interesting information to the SmartDashboard.
      */
     private void log() {
+        SmartDashboard.putNumber("Total Current", robotMap.pdp.getTotalCurrent());
         pneumatics.log();
         driveTrain.log();
         gearPouch.log();
