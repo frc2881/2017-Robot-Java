@@ -11,10 +11,6 @@ import org.frc2881.sample.utils.AmpMonitor;
  * Don't wire this command directly to a controller.  Use {@link PickupGear} instead.
  */
 public class IntakeGear extends Command {
-    /** Give the gear pouch time to drop before starting the motor. */
-    private static final double MOTOR_DELAY = 0.750;  // seconds
-
-    private static final double CURRENT_MONITOR_DELAY = MOTOR_DELAY + 0.200;  // seconds
 
     /** Current value that indicates that a motor is likely stalled. */
     private static final double TURN_OFF_CURRENT = 18.5;  // amps
@@ -36,10 +32,12 @@ public class IntakeGear extends Command {
 
     @Override
     protected void execute() {
-        if (gearPouch.getTimer() >= MOTOR_DELAY) {
+        // After a short delay, start the intake motor
+        if (gearPouch.getTimer() >= 0.750) {
             gearPouch.intakeGear();
         }
-        if (!monitoringAmps && gearPouch.getTimer() >= CURRENT_MONITOR_DELAY) {
+        // Let the motor get started then start monitoring the current used by the motor.
+        if (!monitoringAmps && gearPouch.getTimer() >= 0.750 + 0.200) {
             ampMonitor.reset();
             monitoringAmps = true;
         }

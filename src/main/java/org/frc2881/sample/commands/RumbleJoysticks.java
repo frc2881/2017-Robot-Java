@@ -12,8 +12,7 @@ import static org.frc2881.sample.Robot.oi;
 public class RumbleJoysticks extends TimedCommand {
     private static final double DURATION = 2.0;  // seconds
 
-    private final GenericHID[] controllers = {oi.driver};
-//    private final GenericHID[] controllers = {oi.driver, oi.operator};
+    private final GenericHID driver = oi.driver;
 
     public RumbleJoysticks() {
         super(DURATION);
@@ -30,8 +29,6 @@ public class RumbleJoysticks extends TimedCommand {
     }
 
     private void setRumble(double level) {
-        for (GenericHID controller : controllers) {
-            controller.setRumble(RumbleType.kRightRumble, level);
-        }
+        driver.setRumble(RumbleType.kRightRumble, level);
     }
 }

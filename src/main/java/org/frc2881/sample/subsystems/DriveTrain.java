@@ -29,6 +29,14 @@ public class DriveTrain extends Subsystem {
         setDefaultCommand(new DriveWithJoysticks());
     }
 
+    public void stop() {
+        drive.stopMotor();
+    }
+
+    public void driveStraight(double speed) {
+        drive.tankDrive(speed, speed, true);
+    }
+
     public void tankDrive(double leftSpeed, double rightSpeed) {
         if (flip == Flip.BACKWARD) {
             // Flip left & right, reverse sign
