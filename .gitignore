@@ -5,9 +5,10 @@ build
 target
 
 # Eclipse
-*.project
 *.settings
 /bin
+/build
+/dist
 
 # IntelliJ IDEA
 .idea
