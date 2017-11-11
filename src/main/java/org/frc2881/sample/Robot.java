@@ -25,7 +25,7 @@ import java.util.function.Supplier;
  * this project, you must also update the build.properties file in the project.
  */
 public class Robot extends IterativeRobot {
-    private static final boolean SMART_DASHBOARD = false;
+    private static final boolean SMART_DASHBOARD = true;
 
     public static RobotMap robotMap;
     public static OI oi;
@@ -86,8 +86,8 @@ public class Robot extends IterativeRobot {
     private Supplier<Command> configureAutonomousMenu() {
         // Build the menu of commands.  If LabVIEW Dashboard then it must be programmed with the same menu.
         Map<String, Command> commands = new LinkedHashMap<>();
-        commands.put("Drive Past Line", new DrivePastLine());
         commands.put("Disabled", new InstantCommand());
+        commands.put("Drive Past Line", new DrivePastLine());
 
         // Assume the first menu option is the default
         Map.Entry<String, Command> defaultEntry = commands.entrySet().iterator().next();
