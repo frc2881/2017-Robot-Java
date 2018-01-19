@@ -42,7 +42,6 @@ public class DualShock4Controller extends XboxController {
     }
 
     /** Lower trigger on the front of the controller.  This is the digital (on/off) version of {@link #getTriggerAxis(Hand)}. */
-    @Override
     public boolean getTrigger(Hand hand) {
         return getRawButton(hand == Hand.kLeft ? 7 : 8);
     }

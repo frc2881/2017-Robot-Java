@@ -28,7 +28,7 @@ public class OI {
     // Driver control
 
     /** PS4 controller used by the driver. */
-    public final DualShock4Controller driver = new DualShock4Controller(1, 2);  // use (1, 2) w/InputMapper to get rumble feedback, (1) otherwise
+    public final DualShock4Controller driver = new DualShock4Controller(2, 0);  // use (1, 2) w/InputMapper to get rumble feedback, (1) otherwise
 
     /** HID with the left joystick for the driver, wired to tank drive. */
     public final GenericHID driverLeft = driver;
@@ -47,7 +47,7 @@ public class OI {
     // Mechanism Operator control
 
     /** GamePad controller used by the mechanism operator. */
-    public final XboxController operator = new XboxController(0);
+    public final XboxController operator = new XboxController(1);
 
     public final DoubleSupplier climbJoystick = () -> Math.max(0, -operator.getY(Hand.kRight));
 

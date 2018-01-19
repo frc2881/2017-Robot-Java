@@ -1,11 +1,9 @@
 package org.frc2881.sample;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.frc2881.sample.commands.DrivePastLine;
@@ -50,18 +48,18 @@ public class Robot extends IterativeRobot {
         oi = new OI();
 
         // Setup subsystems composed of devices
-        pneumatics = register(new Pneumatics());
-        driveTrain = register(new DriveTrain());
-        gearPouch = register(new GearPouch());
-        climber = register(new Climber());
-
-        // Wire controls to subsystems
-        oi.initCommands();
+        pneumatics = new Pneumatics();
+        driveTrain = new DriveTrain();
+        gearPouch = new GearPouch();
+        climber = new Climber();
 
         SmartDashboard.putData(pneumatics);
         SmartDashboard.putData(driveTrain);
         SmartDashboard.putData(gearPouch);
         SmartDashboard.putData(climber);
+
+        // Wire controls to subsystems
+        oi.initCommands();
 
         // Which program should be run in autonomous mode?
         autonomousChooser = configureAutonomousMenu();
@@ -72,12 +70,6 @@ public class Robot extends IterativeRobot {
 
         // Once the compressor is ready, move all the pistons to the desired initial state
         new InitializePneumatics().start();
-    }
-
-    /** Report component status back to the dashboard. */
-    private <T extends NamedSendable> T register(T component) {
-        SmartDashboard.putData(component);
-        return component;
     }
 
     /**
@@ -159,7 +151,7 @@ public class Robot extends IterativeRobot {
     /** This function is called periodically during test mode. */
     @Override
     public void testPeriodic() {
-        LiveWindow.run();
+        // everything is automatic
     }
 
     /**

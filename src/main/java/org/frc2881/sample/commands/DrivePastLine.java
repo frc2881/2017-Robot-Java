@@ -2,7 +2,6 @@ package org.frc2881.sample.commands;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import org.frc2881.sample.Robot;
-import org.frc2881.sample.subsystems.DriveTrain;
 import org.frc2881.sample.utils.AmpMonitor;
 
 import static org.frc2881.sample.Robot.robotMap;
@@ -14,12 +13,11 @@ public class DrivePastLine extends TimedCommand {
     private static final double DURATION = 5;  // seconds
     private static final double CURRENT_SAFETY_THRESHOLD = 20;  // current in amps
 
-    private final DriveTrain driveTrain = Robot.driveTrain;
     private final AmpMonitor ampMonitor;
 
     public DrivePastLine() {
         super(DURATION);
-        requires(driveTrain);
+        requires(Robot.driveTrain);
 
         // Stop the robot if it seems like we've hit something
         ampMonitor = new AmpMonitor(CURRENT_SAFETY_THRESHOLD, robotMap.pdp::getTotalCurrent);
@@ -27,13 +25,13 @@ public class DrivePastLine extends TimedCommand {
 
     @Override
     protected void initialize() {
-        driveTrain.lowGear();
+        Robot.driveTrain.lowGear();
         ampMonitor.reset();
     }
 
     @Override
     protected void execute() {
-        driveTrain.tankDrive(0.5, 0.5);
+        Robot.driveTrain.tankDrive(0.5, 0.5);
     }
 
     @Override

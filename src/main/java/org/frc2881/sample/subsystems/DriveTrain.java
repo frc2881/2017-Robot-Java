@@ -1,10 +1,8 @@
 package org.frc2881.sample.subsystems;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.frc2881.sample.commands.DriveWithJoysticks;
 
@@ -19,7 +17,7 @@ public class DriveTrain extends Subsystem {
     // Joysticks don't center perfectly.  Treat any input <= 0.1 as "off".
     private static final double DEADBAND = 0.1;
 
-    private final RobotDrive drive = robotMap.robotDrive;
+    private final DifferentialDrive drive = robotMap.robotDrive;
     private final Solenoid shifter1 = robotMap.driveShifter1;
     private final Solenoid shifter2 = robotMap.driveShifter2;
     private Flip flip = Flip.FORWARD;
@@ -72,10 +70,10 @@ public class DriveTrain extends Subsystem {
 
     /** The log method puts interesting information to the SmartDashboard. */
     public void log() {
-//        SmartDashboard.putNumber("Left Distance", leftEncoder.getDistance());
-//        SmartDashboard.putNumber("Right Distance", rightEncoder.getDistance());
-//        SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
-//        SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
-//        SmartDashboard.putNumber("Gyro", gyro.getAngle());
+        SmartDashboard.putNumber("Left Distance", robotMap.leftEncoder.getDistance());
+        SmartDashboard.putNumber("Right Distance", robotMap.rightEncoder.getDistance());
+        SmartDashboard.putNumber("Left Speed", robotMap.leftEncoder.getRate());
+        SmartDashboard.putNumber("Right Speed", robotMap.rightEncoder.getRate());
+        SmartDashboard.putNumber("Gyro", robotMap.navX.getAngle());
     }
 }

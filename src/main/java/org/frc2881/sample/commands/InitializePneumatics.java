@@ -2,10 +2,8 @@ package org.frc2881.sample.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.frc2881.sample.Robot;
-import org.frc2881.sample.subsystems.Pneumatics;
 
 public class InitializePneumatics extends Command {
-    private final Pneumatics pneumatics = Robot.pneumatics;
     private boolean finished;
 
     public InitializePneumatics() {
@@ -25,7 +23,7 @@ public class InitializePneumatics extends Command {
     @Override
     protected void execute() {
         // Wait for pressure to build
-        if (!pneumatics.isEnabled()) {
+        if (!Robot.pneumatics.isEnabled()) {
             return;
         }
 

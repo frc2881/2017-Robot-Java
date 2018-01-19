@@ -2,7 +2,6 @@ package org.frc2881.sample.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.frc2881.sample.Robot;
-import org.frc2881.sample.subsystems.GearPouch;
 import org.frc2881.sample.utils.AmpMonitor;
 
 /**
@@ -11,33 +10,31 @@ import org.frc2881.sample.utils.AmpMonitor;
  * Don't wire this command directly to a controller.  Use {@link PickupGear} instead.
  */
 public class IntakeGear extends Command {
-
     /** Current value that indicates that a motor is likely stalled. */
     private static final double TURN_OFF_CURRENT = 18.5;  // amps
 
-    private final GearPouch gearPouch = Robot.gearPouch;
-    private final AmpMonitor ampMonitor = new AmpMonitor(TURN_OFF_CURRENT, gearPouch::getMotorCurrent);
+    private final AmpMonitor ampMonitor = new AmpMonitor(TURN_OFF_CURRENT, Robot.gearPouch::getMotorCurrent);
     private boolean monitoringAmps;
 
     public IntakeGear() {
-        requires(gearPouch);
+        requires(Robot.gearPouch);
     }
 
     @Override
     protected void initialize() {
-        gearPouch.resetTimer();
-        gearPouch.pouchDown();
+        Robot.gearPouch.resetTimer();
+        Robot.gearPouch.pouchDown();
         monitoringAmps = false;
     }
 
     @Override
     protected void execute() {
         // After a short delay, start the intake motor
-        if (gearPouch.getTimer() >= 0.750) {
-            gearPouch.intakeGear();
+        if (Robot.gearPouch.getTimer() >= 0.750) {
+            Robot.gearPouch.intakeGear();
         }
         // Let the motor get started then start monitoring the current used by the motor.
-        if (!monitoringAmps && gearPouch.getTimer() >= 0.750 + 0.200) {
+        if (!monitoringAmps && Robot.gearPouch.getTimer() >= 0.750 + 0.200) {
             ampMonitor.reset();
             monitoringAmps = true;
         }
@@ -52,7 +49,7 @@ public class IntakeGear extends Command {
 
     @Override
     protected void end() {
-        gearPouch.stopGearMotor();
-        gearPouch.pouchUp();
+        Robot.gearPouch.stopGearMotor();
+        Robot.gearPouch.pouchUp();
     }
 }

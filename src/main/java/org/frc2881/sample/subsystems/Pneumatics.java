@@ -1,13 +1,9 @@
 package org.frc2881.sample.subsystems;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import static org.frc2881.sample.Robot.robotMap;
-
 public class Pneumatics extends Subsystem {
-    private final Compressor compressor = robotMap.compressor;
     private boolean enabled;
 
     @Override

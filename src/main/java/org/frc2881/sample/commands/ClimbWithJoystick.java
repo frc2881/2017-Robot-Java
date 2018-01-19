@@ -2,21 +2,15 @@ package org.frc2881.sample.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.frc2881.sample.Robot;
-import org.frc2881.sample.subsystems.Climber;
-
-import java.util.function.DoubleSupplier;
 
 public class ClimbWithJoystick extends Command {
-    private final DoubleSupplier joystick = Robot.oi.climbJoystick;
-    private final Climber climber = Robot.climber;
-
     public ClimbWithJoystick() {
-        requires(climber);
+        requires(Robot.climber);
     }
 
     @Override
     protected void execute() {
-        climber.climb(joystick.getAsDouble());
+        Robot.climber.climb(Robot.oi.climbJoystick.getAsDouble());
     }
 
     @Override
@@ -26,6 +20,6 @@ public class ClimbWithJoystick extends Command {
 
     @Override
     protected void end() {
-        climber.climb(0);
+        Robot.climber.climb(0);
     }
 }
